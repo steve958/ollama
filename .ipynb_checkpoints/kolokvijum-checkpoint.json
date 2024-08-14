@@ -1,0 +1,490 @@
+[
+  {
+    "title": "Markup jezici i XML",
+    "description": "Markup jezici i XML\n"
+  },
+  {
+    "title": "Document Type Definition (DTD)",
+    "description": "Document Type Definition (DTD)\n"
+  },
+  {
+    "title": "XML Namespaces",
+    "description": "XML Namespaces\n"
+  },
+  {
+    "title": "XML Schema",
+    "description": "XML Schema\n"
+  },
+  {
+    "title": "XML PARSERI",
+    "description": "XML PARSERI\nNovi Sad, 2017\nMiroslav Zari\u0107 \n"
+  },
+  {
+    "title": "\u0160TA JE XML PARSIRANJE",
+    "description": "\u0160TA JE XML PARSIRANJE\n\u2022 Podrazumeva prolazak kroz XML dokument sa \nciljem: \n\u2022 pristupa odre\u0111enim (ili svim) podacima u njemu \n\u2022 modifikacije podataka (ne dozvoljavaju svi parseri) \n\u2022 XML parser - program koji putem odgovaraju\u0107ih \n(po\u017eeljno jednostavnih) funkcija omogu\u0107ava laku \nmanipulaciju sadr\u017eajima u XML dokumentima\n2\n"
+  },
+  {
+    "title": "VRSTE PARSERA",
+    "description": "VRSTE PARSERA\n\u2022 SAX Parser - obra\u0111uje dokument na osnovu \ndoga\u0111aja - za odre\u0111eni tip doga\u0111aja pi\u0161e se \nodgovaraju\u0107i handler.  Ne u\u010ditava odjednom ceo \ndokument u memoriju (ne pravi njegovu \nmemorijsku predstavu). \n\u2022 DOM Parser - obrada XML dokumenta se obavlja \ntako \u0161to se ceo dokument u\u010dita u memoriju - \nformiranjem strukture hijerarhijskog stabla. \u2028\nSva manipulacija se zatim obavlja nad ovom \nmemorijskom reprezentacijom dokumenta.\n3\n"
+  },
+  {
+    "title": "VRSTE PARSERA",
+    "description": "VRSTE PARSERA\n\u2022 StAX Parser - Koristi sli\u010dne principe kao SAX, bolje \noptimizovan. \n\u2022 XPath Parser - Obradu dokumenta vr\u0161i na osnovu \nodgovaraju\u0107ih izraza - koristi se intenzivno u \nkombinaciji sa XSLT.\n4\n"
+  },
+  {
+    "title": "SAX PARSER",
+    "description": "SAX PARSER\n\u2022 SAX Parser - obra\u0111uje dokument na osnovu doga\u0111aja - za odre\u0111eni tip doga\u0111aja \npi\u0161e se odgovaraju\u0107i handler.  Ne u\u010ditava odjednom ceo dokument u memoriju (ne \npravi njegovu memorijsku predstavu). \n\u2022 Osnovne karakteristike: \n\u2022 Stream orijentisan interfejs za obradu XML-a. Aplikacija koja koristi ovaj tip \nparsera dobija notifikaciju svaki put kada se procesira element, atribut\u2026  \n\u2022 \u010cita dokument po\u010dev\u0161i od root elementa i generi\u0161e doga\u0111aje svaki put kada \nprepozna neki \u201ctoken\u201d u dobro formiranom dokumentu. \n\u2022 obrada se vr\u0161i isklju\u010divo po redosledu pojavljivanja u dokumentu \n\u2022 obave\u0161tava aplikaciju o tipu tokena na koji je trenutno nai\u0161ao \n\u2022 da bi obezbedila smislenu obradu aplikacija mora parseru registrovati svoj \nevent handler \n\u2022 kada se odre\u0111eni token detektuje, trigeruje se odgovaraju\u0107i registrovani \nevent handler za dati tip tokena\n5\n"
+  },
+  {
+    "title": "SAX PARSER",
+    "description": "SAX PARSER\n\u2022 ContentHandler interfejs (specificira callback metode koje parser koristi da notifikuje \naplikaciju o tipu sadr\u017eaja na koji je nai\u0161ao): \n\u2022 void startDocument() \n\u2022 void endDocument()  \n\u2022 void startElement(String uri, String localName, String qName, Attributes atts)  \n\u2022 void endElement(String uri, String localName,String qName)  \n\u2022 void characters(char[] ch, int start, int length)  \n\u2022 void ignorableWhitespace( char[] ch, int start, int length) \n\u2022 void processingInstruction(String target, String data) \n\u2022 void setDocumentLocator(Locator locator)) - (postavlja lokator kojim je mogu\u0107e \npratiti poziciju u dokumentu) \n\u2022 void skippedEntity(String name)  \n\u2022 void startPrefixMapping(String prefix, String uri)  \n\u2022 void endPrefixMapping(String prefix) \n6\n"
+  },
+  {
+    "title": "SAX PARSER",
+    "description": "SAX PARSER\n\u2022 Kada ga je pogodno koristiti: \n\u2022 Kada je mogu\u0107e obradu vr\u0161iti linearno - redom kojim se elementi \npojavljuju od vrha ka dnu dokumenta \n\u2022 Dokument nije \u201cduboko ugnje\u017eden\u201d \n\u2022 Kada se procesira veliki dokument (ili veliki broj dokumenata u \nparaleli) - u tom slu\u010daju bi formiranje modela dokumenta bilo \nresusrsno prezahtevno (DOM implementacije koriste i do 10 bajta \nmemorije za 1 bajt XML podataka) \n\u2022 Kada problem koji se re\u0161ava zahteva kori\u0161\u0107enje samo dela \ndokumenta \n\u2022 Podaci su dostupni \u010dim ih parser \u201cprepozna\u201d - idealno za obradu \npodataka koji se \u201cstreamuju\u201d\n7\n"
+  },
+  {
+    "title": "SAX PARSER",
+    "description": "SAX PARSER\n\u2022 Nedostaci: \n\u2022 Nije mogu\u0107 direktni pristup odre\u0111enom elementu \nu strukturi (jer se sve procesira linearno) \n\u2022 Ukoliko je potrebno imati naknadni pristup \npodacima koje je parser ve\u0107 \u201cpro\u0161ao\u201d neophodno \nje pisati dodatni sopstveni kod koji bi takve \npodatke negde privremeno \u010duvao\n8\n"
+  },
+  {
+    "title": "DOM",
+    "description": "DOM\n\u2022Document Object Model (DOM) - oficijelna preporuka modela \nXML dokumenta World Wide Web Consortium-a (W3C).  \n\u2022Defini\u0161e interfejse koji aplikacijama omogu\u0107avaju pristup i \nmanipulaciju sadr\u017eaja XML dokumenata. Parseri koji \nimplementiraju DOM implementiraju slede\u0107e interfejse: \n\u2022 Node - osnovni tip u DOM. \n\u2022 Element -  predstavlja elemente XML-a. \n\u2022 Attr - reprezentuje atribute elementa XML-a. \n\u2022 Text  - predstavlja tekstualni sadr\u017eaj elementa ili tributa. \n\u2022 Document - predstavlja ceo dokument.\n9\n"
+  },
+  {
+    "title": "DOM",
+    "description": "DOM\n10\n"
+  },
+  {
+    "title": "DOM PARSERI",
+    "description": "DOM PARSERI\n\u2022Osnovne karakteristike: \n\u2022 Po zavr\u0161enom parsiranju aplikaciji je na \nraspolaganju objektna reprezentacija sadr\u017eaja \ndokumenta formirana kao hijerarhijsko stablo \n(DOM).  \n\u2022 DOM obezbe\u0111uje veliki broj funkcija za pristup i \nmanipulaciju nad DOM strukturom i sadr\u017eajem.\n11\n"
+  },
+  {
+    "title": "DOM PARSERI",
+    "description": "DOM PARSERI\n\u2022 Osnovna prednost: DOM je de facto standardni \ninterfejs za manipulaciju strukturom XML \ndokumenata. Kod napisan da koristi jedan DOM \nparser trebao bi da radi i ako mu se \u201cpodmetne\u201d \ndruga implementacija uskla\u0111ena sa W3C \npreporukama. \n\u2022 Glavni nedostatak: nepogodan je za jako velike \ndokumente jer formiranje in-memory strukture mo\u017ee \nbiti resursno prezahtevno\n12\n"
+  },
+  {
+    "title": "DOM PARSERI",
+    "description": "DOM PARSERI\n\u2022Kada ga je pogodno koristiti? \n\u2022 Kada je neophodno dobro sagledati i za obradu \ndobro poznavati strukturu celog dokumenta \n\u2022 Kada je neophodno reorganizovati dokument \n(preme\u0161tati, dodavati, sortirati elemente\u2026) \n\u2022 Kada postoji velika verovatno\u0107a da \u0107e nam \nodre\u0111ene informacije iz dokumenta biti potrebne \nvi\u0161e puta tokom obrade.\n13\n"
+  },
+  {
+    "title": "Simple API for XML - SAX",
+    "description": "Simple API for XML - SAX\nXML i web servisi 2008.\n"
+  },
+  {
+    "title": "Document Object Model - DOM",
+    "description": "Document Object Model - DOM\nXML i web servisi 2008.\n"
+  },
+  {
+    "title": "XPath",
+    "description": "XPath\n"
+  },
+  {
+    "title": "XPointer",
+    "description": "XPointer\n"
+  },
+  {
+    "title": "XLink",
+    "description": "XLink\n"
+  },
+  {
+    "title": "XQuery",
+    "description": "XQuery\nXML i web servisi 2008.\n"
+  },
+  {
+    "title": "Web servisi i SOAP protokol",
+    "description": "XML i web servisi 2008.\nWeb servisi i SOAP protokol\n"
+  },
+  {
+    "title": "WSDL",
+    "description": "XML i web servisi 2008.\nWSDL\n"
+  },
+  {
+    "title": "UDDI",
+    "description": "XML i web servisi 2008.\nUDDI\n"
+  },
+  {
+    "title": "RESTful  Web servisi",
+    "description": "RESTful  Web servisi\n"
+  },
+  {
+    "title": "\u0160ta je REST?",
+    "description": "\u0160ta je REST?\n\u2022 REST = Representational State Transfer \n\u2022 Stil softverske arhitekture namenjen distribuiranim \nhipermedijalnim sistemima, kao \u0161to je World Wide \nWeb \n\u2022 Termin \u201eskovao\u201c Roy Fielding u svojoj disertaciji na \nUniversity of California, Irvine.  \n"
+  },
+  {
+    "title": "\u0160ta je REST?",
+    "description": "\u0160ta je REST?\n\u2022 Representational State Transfer (REST) - stil arhitekture sistema \nkoji speci\ufb01cira odre\u0111ena ograni\u010denja: \n1. Na\u010din identi\ufb01kacije resursa \n2. uniformisani interfejs\u2028\nGET, PUT, DELETE, POST (HEAD, OPTIONS...)  \n3. Samoopisive poruke \n4. Stanje aplikacije upravljano hipermedijom (linkovi \npredstavljaju endpointe kojim se manipuli\u0161e resursima, \nmanipulacija resursima menja teku\u0107e stanje aplikacije) \n5. Stateless interakcije  \n\u2022 Primena ovih ograni\u010denja na web servise poja\u010dava pozitivne \nosobine, kao \u0161to su performanse, skalabilnost, izmenjivost. \n"
+  },
+  {
+    "title": "\u0160ta je REST?",
+    "description": "\u0160ta je REST?\n\u2022 U REST arhitekturi, podaci i funkcionalnost se \nposmatraju kao resursi i pristupa im se putem \nUniform Resource Identi\ufb01ers (URIs), tipi\u010dno kao \nlinkovima na web-u.  \n\u2022 Resursima se manipuli\u0161e primenom skupa \njednostavnih, dobro de\ufb01nisanih operacija.  \n\u2022 REST arhitektura je klijent/server i dizajnirana je da \nkoristi stateless komunikacioni protokol, tipi\u010dno HTTP.  \n\u2022 klijent i server razmenjuju reprezentacije resursa \nkoriste\u0107i pri tome standardizovan interfejs i \nprotokol.\n"
+  },
+  {
+    "title": "Dizajn REST aplikacije / metodologija",
+    "description": "Dizajn REST aplikacije / metodologija\n1. Identi\ufb01kovanje resursa koji treba da su vidljivi \nkao servis (npr. godi\u0161nji izve\u0161taji, katalozi \nknjiga, porud\u017ebine\u2026) \n2. Modelovanje relacija izme\u0111u resursa kao \nhiperlinkova koje je mogu\u0107e slediti kako bi se \ndobilo vi\u0161e detalja (ili kako bi se izvela \npromena stanja resursa) \n3. Dei\ufb01nisati \u201elepe\u201c URI-je za adresiranje resursa \n4. Razumeti smisao izvr\u0161avanja GET, POST, PUT, \nDELETE zahteva na svaki od resursa (i sa li su \nsvi i dozvoljeni za svaki resurs) \n5. Dizajnirati i dokumentovati reprezentaciju \nresursa (mo\u017ee biti vi\u0161e) \n6. Implementirati i postaviti na web server \n7. Testirati (browser, PostMen\u2026) \n"
+  },
+  {
+    "title": "Primer simpli\ufb01kovanog Doodle API-ja",
+    "description": "Primer simpli\ufb01kovanog Doodle API-ja \n1.\nResursi su:\u2028\nanketa i glasovi \n2.\nRelacije izme\u0111u resursa:\n 3. \nURIs sadr\u017ee ID-eve resursa  \n 4. \nPOST na URI kontejnera se koristi \nda kreira novi resurs  \n 5. \nPUT/DELETE se koristi za \na\u017euriranje ili brisanje resursa /{id}\n"
+  },
+  {
+    "title": "Primer simpli\ufb01kovanog Doodle API-ja",
+    "description": "Primer simpli\ufb01kovanog Doodle API-ja \n2. \u010citanje ankete \u2028\n(vr\u0161i se transfer stanja ankete sa Doodle servisa)\n1.\nKreiranje ankete \u2028\n(vr\u0161i se transfer stanja nove ankete na Doodle servis)\n"
+  },
+  {
+    "title": "Primer simpli\ufb01kovanog Doodle API-ja",
+    "description": "Primer simpli\ufb01kovanog Doodle API-ja \n4. \u010citanje ankete \u2028\n(vr\u0161i se transfer stanja ankete sa Doodle servisa)\n3. U\u010destvovanje u anketi\u2028\n(kreira se novi resurs sa mojim glasanjem)\n"
+  },
+  {
+    "title": "Primer simpli\ufb01kovanog Doodle API-ja",
+    "description": "Primer simpli\ufb01kovanog Doodle API-ja \n6. Opet \u010ditanje ankete \u2028\n(vr\u0161i se transfer stanja ankete sa Doodle servisa)\n5. Izmena postoje\u0107eg glasanja\n"
+  },
+  {
+    "title": "Primer simpli\ufb01kovanog Doodle API-ja",
+    "description": "Primer simpli\ufb01kovanog Doodle API-ja \n6. Poku\u0161aj \u010ditanja sada vi\u0161e ne uspeva\n7. Po potrebi cela anketa se mo\u017ee obrisati\n"
+  },
+  {
+    "title": "URI",
+    "description": "URI\n\u2022 Internet Standard za imenovanje i identi\ufb01kaciju \nresursa (originalni iz 1994, revidiran od 2005) \n\u2022 Primer:\n"
+  },
+  {
+    "title": "\u0160ta je \u201elep\u201c URI",
+    "description": "\u0160ta je \u201elep\u201c URI\n\u2022 Po\u017eeljno je putanju do resursa pretvoriti u niz \nsegmenata, a ne koristiti key=value parove u \nquery-ju \n\u2022 bolje  \nhttp://www.mojaknjizara.com/knjige/beletristika \n\u2022 nego \nhttp://www.mojaknjizara.com?\nkatalog=knjige&kategorija=beletristika\n"
+  },
+  {
+    "title": "Smernice za osmi\u0161ljavanje URI-ja",
+    "description": "Smernice za osmi\u0161ljavanje URI-ja\n\u2022 Preferifaju se imenice a ne \nglagoli za imenovanje resursa \n\u2022 Te\u017eite ka tome da URI bude \nkratak \n\u2022 Ako je mogu\u0107e koristite \npozicionu \u0161emu prosle\u0111ivanja \nparametara, a ne query string  \n\u2022 Ponekad se koriste URI \npost\ufb01xi da se speci\ufb01cira tip \nsadr\u017eaja \n\u2022 Ne menjajte URI-je za resurse  \n\u2022 Ako ba\u0161 morate koristite \nredirekciju\nGET /book?isbn=24&action=delete  \nDELETE /book/24  \n\u010cesto se koristi URI templejting, ali \nto onda ostvaruje \u010dvr\u0161\u0107e \npovezivanje klijenta sa serverskom \nimplementacijom\n"
+  },
+  {
+    "title": "URI \u0161abloni",
+    "description": "URI \u0161abloni\n\u2022 URI Templates (\u0161abloni) speci\ufb01ciraju kako \nkonstruisati i parsirati parametrizovane URI-je. \n\u2022 Na servisnoj strani obi\u010dno se koriste \u201cruting \npravila\u201d \n\u2022 Na klijentskoj strani ovi \u0161abloni se koriste da se \nkonsturi\u0161e URI do resursa na osnovu lokalnih \nparametara.\n"
+  },
+  {
+    "title": "URI \u0161abloni",
+    "description": "URI \u0161abloni\n\u2022 Izbegnite hardkodiranje URI-ja u klijentskoj \naplikaciji \n\u2022 Smanjite me\u0111uzavisnost od servera tako \u0161to \n\u0107ete povu\u0107i URI \u0161ablon sa servera i dinami\u010dki \npopunjavati na klijentu\n"
+  },
+  {
+    "title": "URI \u0161abloni",
+    "description": "URI \u0161abloni\n\u2022 Template:\u2028\nhttp://www.myservice.com/order/{oid}/item/{iid} \n\u2022  Example URI:\u2028\nhttp://www.myservice.com/order/XYZ/item/12345 \n\u2022  Template:\u2028\nhttp://www.google.com/search?{-join|&|q,num} \n\u2022  Example URI:\u2028\nhttp://www.google.com/search?q=REST&num=10\n"
+  },
+  {
+    "title": "Uniforman interfejs",
+    "description": "Uniforman interfejs\nKrerira\u2028\n(pod)resurs\nPreuzima trenutno\u2028\nstanje resursa\nA\u017eurira stanje \u2028\nresursa na \u2028\nzadatom URI-ju\nUklanja resurs.\u2028\nNakon toga URI vi\u0161e\u2028\nnije validan.\n"
+  },
+  {
+    "title": "HTML forme",
+    "description": "HTML forme\n\u2022 HTML4/XHTML\u2028\n<form method=\u201cGET|POST\u201d> \n\u2022  HTML5\u2028\n<form method=\u201cGET|POST|PUT|DELETE\u201d>\n"
+  },
+  {
+    "title": "GET / POST",
+    "description": "GET / POST\n\u2022 GET je operacija \u010ditanja - read-only.\u2028\nMo\u017ee se ponavljati proizvoljan broj puta, pri \u010demu \nse stanje resursa ne\u0107e menjati (idempotentna \noperavija). Mo\u017ee se i ke\u0161irati. \n\u2022 Napomena: Ovo ne zna\u010di da \u0107e uvek biti \nvra\u0107ena ista reprezentacija resursa. \n\u2022 POST je operacija i pisanja i \u010ditanja, i mo\u017ee \npromeniti stanje resursa. Mo\u017ee izazvati i bo\u010dne \nefekte na serveru.\n"
+  },
+  {
+    "title": "POST / PUT",
+    "description": "POST / PUT\n\u2022 Koji je dobar na\u010din za kreiranje resursa? \n1. Klijent kreira id resursa.\u2028\nProblem: Kako obezbediti stvarnu jedinstvenost?\u2028\nPUT /resource/{id} //po de\ufb01niciji mo\u017ee da se \nkoristi i za inicijalizaciju kreiranih resursa \n2. Servis kreira id resursa, i vra\u0107a ceo krerirani resurs \nklijentu. Problem: mogu\u0107e je kreiranje vi\u0161estrukih \ninstanci ako se vi\u0161e puta pozove endpoint.\u2028\nPOST /resource\n3. Server bi za novi resurs trebao da odgovori sa \u2028\n201 Created statusom.\n"
+  },
+  {
+    "title": "Kako se adaptirati na promene URI-ja",
+    "description": "Kako se adaptirati na promene URI-ja\n\u2022 Kako obezbediti da servis funkcioni\u0161e za krajnjeg korisnika \n\u010dak i kada je stvarno do\u0161lo do promene ednpoint(ova)? \n1.\nDo ove promene mo\u017ee do\u0107i kako iz poslovnih razloga \ntako i iz tehni\u010dkih \n2.\nMo\u017eda ne\u0107e biti mogu\u0107e odjednom promeniti sve \nlinkove do servisnih endpointa, \u0161to dovodi do \npotencijlanih problema \n\u2022 Korisititi automatsku redirekciju tako da sve korisnike koji se \nobrate starom endpointu redirektuje na novi endpoint\n"
+  },
+  {
+    "title": "Redirekcija uz pomo\u0107 HTTP-a",
+    "description": "Redirekcija uz pomo\u0107 HTTP-a\n\u2022 HTTP ima ugra\u0111enu \npodr\u0161ku za ovakve situacije \n\u2022 Status kodovi 3xx \n\u2022 301 Moved Permanently \n\u2022 307 Moved Temporarily \n\u2022 Location: /newURI\u2028\n\u2022 Redirekcije se mogu \nulan\u010davati, ali se pri tome \nmora paziti da se ne \nnapravi cirkularna \nredirekcija\n"
+  },
+  {
+    "title": "Da li se svi moraju dogovoriti o",
+    "description": "Da li se svi moraju dogovoriti o \nzajedni\u010dkom formatu\n\u2022 Kako obezbediti da servis podr\u017eava korisnike koji \nkoriste ili \u017eele da koriste razli\u010dite formate poruka \n(prenosa podataka) \n\u2022 Ponekad klijenti mogu da promene svoje zahteve \n\u2022 Servis bi mo\u017eda trebalo da mo\u017ee da podr\u017ei razli\u010dite \nkorisnike bez potrebe da se pravi poseban interfejs za \nsvakog od njih\n"
+  },
+  {
+    "title": "zajedni\u010dkom formatu",
+    "description": "Da li se svi moraju dogovoriti o \nzajedni\u010dkom formatu\n\u2022 Kako obezbediti da servis podr\u017eava korisnike koji \nkoriste ili \u017eele da koriste razli\u010dite formate poruka \n(prenosa podataka) \n\u2022 Ponekad klijenti mogu da promene svoje zahteve \n\u2022 Servis bi mo\u017eda trebalo da mo\u017ee da podr\u017ei razli\u010dite \nkorisnike bez potrebe da se pravi poseban interfejs za \nsvakog od njih\n"
+  },
+  {
+    "title": "Re\u0161enje:",
+    "description": "Re\u0161enje: Content Negotiation\n\u2022 Speci\ufb01\u010dan sadr\u017eaj i formati reprezentacije podataka koji \u0107e biti \nprihva\u0107eni ili vra\u0107eni od strane servisa mo\u017ee se dogovoriti u \nmomentu izvr\u0161avanja servisa kao deo njegovog poziva. \n\u2022 Dogovor o na\u010dinu kori\u0161\u0107enja servisa se zasniva na tipovima \nsadr\u017eaja \u201cmedia types\u201d. \n\u2022 Prednosti ovog pristupa: obezbe\u0111uje slabu povezanost \n(uslovljenost), pove\u0107anu interoperabilnost, pove\u0107anu agilnost za \nadaptiranje\n"
+  },
+  {
+    "title": "Content Negotiation",
+    "description": "Re\u0161enje: Content Negotiation\n\u2022 Speci\ufb01\u010dan sadr\u017eaj i formati reprezentacije podataka koji \u0107e biti \nprihva\u0107eni ili vra\u0107eni od strane servisa mo\u017ee se dogovoriti u \nmomentu izvr\u0161avanja servisa kao deo njegovog poziva. \n\u2022 Dogovor o na\u010dinu kori\u0161\u0107enja servisa se zasniva na tipovima \nsadr\u017eaja \u201cmedia types\u201d. \n\u2022 Prednosti ovog pristupa: obezbe\u0111uje slabu povezanost \n(uslovljenost), pove\u0107anu interoperabilnost, pove\u0107anu agilnost za \nadaptiranje\n"
+  },
+  {
+    "title": "Content Negotiation",
+    "description": "Content Negotiation u HTTP\n\u2022 Dogovaranje o formatu razmene poruka je podr\u017eano u \nsamom HTTP-u i ne zahteva slanje dodatnih poruka \nizme\u0111u klijenta i servera \nGET /resource\nAccept: text/html, application/xml, application/json\n\u2022 Klijent saop\u0161tava koje formate mo\u017ee da razume\u2028\n(MIME types) \n200 OK\nContent-Type: application/json\n\u2022 Server bira najpogodniji i njega vra\u0107a\u2028\n(status 406 ako nije u stanju da odgovori ni u jednom \nod tra\u017eenih formata)\n"
+  },
+  {
+    "title": "u HTTP",
+    "description": "Content Negotiation u HTTP\n\u2022 Dogovaranje o formatu razmene poruka je podr\u017eano u \nsamom HTTP-u i ne zahteva slanje dodatnih poruka \nizme\u0111u klijenta i servera \nGET /resource\nAccept: text/html, application/xml, application/json\n\u2022 Klijent saop\u0161tava koje formate mo\u017ee da razume\u2028\n(MIME types) \n200 OK\nContent-Type: application/json\n\u2022 Server bira najpogodniji i njega vra\u0107a\u2028\n(status 406 ako nije u stanju da odgovori ni u jednom \nod tra\u017eenih formata)\n"
+  },
+  {
+    "title": "Content Negotiation",
+    "description": "Content Negotiation u HTTP\n\u2022 Dogovaranje o formatu razmene poruka je podr\u017eano u \nsamom HTTP-u i ne zahteva slanje dodatnih poruka \nizme\u0111u klijenta i servera \nGET /resource\nAccept: text/html, application/xml, application/json\n\u2022 Klijent saop\u0161tava koje formate mo\u017ee da razume\u2028\n(MIME types) \n200 OK\nContent-Type: application/json\n\u2022 Server bira najpogodniji i njega vra\u0107a\u2028\n(status 406 ako nije u stanju da odgovori ni u jednom \nod tra\u017eenih formata)\n"
+  },
+  {
+    "title": "u HTTP",
+    "description": "Content Negotiation u HTTP\n\u2022 Dogovaranje o formatu razmene poruka je podr\u017eano u \nsamom HTTP-u i ne zahteva slanje dodatnih poruka \nizme\u0111u klijenta i servera \nGET /resource\nAccept: text/html, application/xml, application/json\n\u2022 Klijent saop\u0161tava koje formate mo\u017ee da razume\u2028\n(MIME types) \n200 OK\nContent-Type: application/json\n\u2022 Server bira najpogodniji i njega vra\u0107a\u2028\n(status 406 ako nije u stanju da odgovori ni u jednom \nod tra\u017eenih formata)\n"
+  },
+  {
+    "title": "Content Negotiation",
+    "description": "Content Negotiation - malo naprednije\n\u2022 \u201cFaktor kvaliteta\u201d mo\u017ee da se koristi da sugeri\u0161e koliko \nkoji format klijent preferira da dobije kao odgovor. \nMedia/Type; q=X \n\u2022 Ako se za neki tip navede q=0, takav sadr\u017eaj nije \nprihvatljiv za klijenta. \nAccept: text/html, text/*; q=0.1\n\u2022 Klijent preferira HTML (ali prihvati\u0107e i bilo koji drugi \ntekstualni format, ali sa ni\u017eim prioritetom) \nAccept: application/xhtml+xml; q=0.9,text/html; q=0.5, \ntext/plain; q=0.1\n\u2022 Klijent preferira XHTML, ili  HTML ako ve\u0107 ne mo\u017ee \nprvo, a kao fallback prihvata i obi\u010dan tekst\n"
+  },
+  {
+    "title": "- malo naprednije",
+    "description": "Content Negotiation - malo naprednije\n\u2022 \u201cFaktor kvaliteta\u201d mo\u017ee da se koristi da sugeri\u0161e koliko \nkoji format klijent preferira da dobije kao odgovor. \nMedia/Type; q=X \n\u2022 Ako se za neki tip navede q=0, takav sadr\u017eaj nije \nprihvatljiv za klijenta. \nAccept: text/html, text/*; q=0.1\n\u2022 Klijent preferira HTML (ali prihvati\u0107e i bilo koji drugi \ntekstualni format, ali sa ni\u017eim prioritetom) \nAccept: application/xhtml+xml; q=0.9,text/html; q=0.5, \ntext/plain; q=0.1\n\u2022 Klijent preferira XHTML, ili  HTML ako ve\u0107 ne mo\u017ee \nprvo, a kao fallback prihvata i obi\u010dan tekst\n"
+  },
+  {
+    "title": "Forsirani",
+    "description": "Forsirani Content Negotiation\n\u2022 Sam generi\u010dki URI podr\u017eava ovaj koncept. \nGET /resource\nAccept: text/html, application/xml,application/json\n\u2022 Napravi se poseban URI za svaki tip odgovora \ndodavanjem ekstenzije (post\ufb01xa) na URI \nGET /resource.html\nGET /resource.xml\nGET /resource.json\n\u2022 Napomena: Ovo je samo prihva\u0107ena praksa nije \nstandard. \n"
+  },
+  {
+    "title": "Content Negotiation",
+    "description": "Forsirani Content Negotiation\n\u2022 Sam generi\u010dki URI podr\u017eava ovaj koncept. \nGET /resource\nAccept: text/html, application/xml,application/json\n\u2022 Napravi se poseban URI za svaki tip odgovora \ndodavanjem ekstenzije (post\ufb01xa) na URI \nGET /resource.html\nGET /resource.xml\nGET /resource.json\n\u2022 Napomena: Ovo je samo prihva\u0107ena praksa nije \nstandard. \n"
+  },
+  {
+    "title": "Content Negotiation - mogu se",
+    "description": "Content Negotiation - mogu se \npode\u0161avati razni aspekti\n\u2022 Content Negotiation - veoma je \ufb02eksibilan i mo\u017ee se \nsprovesti po razli\u010ditim aspektima (dimenzijama). Svaki \nod njih se pode\u0161ava speci\ufb01\u010dnim parom HTTP \nzaglavlja\n"
+  },
+  {
+    "title": "pode\u0161avati razni aspekti",
+    "description": "Content Negotiation - mogu se \npode\u0161avati razni aspekti\n\u2022 Content Negotiation - veoma je \ufb02eksibilan i mo\u017ee se \nsprovesti po razli\u010ditim aspektima (dimenzijama). Svaki \nod njih se pode\u0161ava speci\ufb01\u010dnim parom HTTP \nzaglavlja\n"
+  },
+  {
+    "title": "De\ufb01nisanje medijskih tipova za REST",
+    "description": "De\ufb01nisanje medijskih tipova za REST\n\u2022 Kako na\u0107i najbolji medijski tip za reprezentaciju \npodataka? \n\u2022 Da li koristiti generi\u010dke ili smisliti novi speci\ufb01\u010dni \nmedijski tip? \n\u2022 Da li uvek standardizovati tipove?\n"
+  },
+  {
+    "title": "Neke preporuke za",
+    "description": "Neke preporuke za\u2028\nmedijske tipove za REST\n\u2022 Kad je mogu\u0107e koristite postoje\u0107e dobro poznate \ntipove \n\u2022 Ali kada je potrebno, slobodno kreirajte svoj \n\u2022 ali ga onda standardizujte i koristite kad god je \nmogu\u0107e \n\u2022 Medijski tipovi zapravo prenose informaciju o \nreprezentaciji resursa predstavljenih na\u0161im modelom \n\u2022 Ne postoji \u201cnajbolji tip\u201d za neki servis, sve zavisi od \npotreba i o\u010dekivanja klijenata \n\u2022 Klijenti ne moraju nu\u017eno da procesiraju odre\u0111eni \nmedijski tip onako kako mi o\u010dekujemo\n"
+  },
+  {
+    "title": "medijske tipove za REST",
+    "description": "Neke preporuke za\u2028\nmedijske tipove za REST\n\u2022 Kad je mogu\u0107e koristite postoje\u0107e dobro poznate \ntipove \n\u2022 Ali kada je potrebno, slobodno kreirajte svoj \n\u2022 ali ga onda standardizujte i koristite kad god je \nmogu\u0107e \n\u2022 Medijski tipovi zapravo prenose informaciju o \nreprezentaciji resursa predstavljenih na\u0161im modelom \n\u2022 Ne postoji \u201cnajbolji tip\u201d za neki servis, sve zavisi od \npotreba i o\u010dekivanja klijenata \n\u2022 Klijenti ne moraju nu\u017eno da procesiraju odre\u0111eni \nmedijski tip onako kako mi o\u010dekujemo\n"
+  },
+  {
+    "title": "Obrada gre\u0161aka",
+    "description": "Obrada gre\u0161aka\n"
+  },
+  {
+    "title": "RESTful  Web servisi",
+    "description": "RESTful  Web servisi (2)\n"
+  },
+  {
+    "title": "Vrste zahteva nad resursima",
+    "description": "Vrste zahteva nad resursima\n\u2022 Idempotentne \n\u2022 Sigurne \n\u2022 Nesigurne\n"
+  },
+  {
+    "title": "Vrste zahteva nad resursima",
+    "description": "Vrste zahteva nad resursima\n\u2022 Idempotentni  \n\u2022 Mogu se ponavljati vi\u0161e puta, a da ne izazivaju negativne \nbo\u010dne efekte na serveru\u2028\n\u2028\nGET /book\u2028\nPUT /order/x\u2028\nDELETE /order/y \n\u2022 Ukoliko server ne funkcioni\u0161e ok, zahtev se mo\u017ee ponavljati \ndok server ne proradi \n\u2022 Sigurni su oni idempotentni zahtevi koji ne menjaju stanje \nsamog resursa na serveru\u2028\n\u2028\nGET /book\u2028\n"
+  },
+  {
+    "title": "Vrste zahteva nad resursima",
+    "description": "Vrste zahteva nad resursima\n\u2022 Nesigurni zahtevi \n\u2022 ovi zahtevi modi\ufb01kuju stanje na serveru i ne \nmogu se ponavljati, a da pri tome ne izazovu \nne\u017eeljene efekte \n\u2022 za ovakve zahteve neophodne su dodatne akcije \nu posebnim situacijama (tzv. state reconsiliation)\u2028\n\u2028\nPOST /order/x/payment \n\u2022 u nekim situacijama API se mo\u017ee refaktorisati \ntako da se koriste idempotentne operacije\u2028\n"
+  },
+  {
+    "title": "Problem konkurentnosti",
+    "description": "Problem konkurentnosti\n\u2022 Razlaganje APIja u niz \nidempotentnih zahteva \npoma\u017ee da se prevazi\u0111u \nproblemi privremenih \notkaza servisa \n\u2022 \u0160ta ako drugi korisnik \nkonkurentno a\u017eurira resurs? \n\u2022 Da li raditi pesimisti\u010dko \nzaklju\u010davanje resursa \n(eksplicitno zaklju\u010davanje) \nili je mogu\u0107e i neko drugo \nre\u0161enje?\u2028\n"
+  },
+  {
+    "title": "Problem konkurentnosti",
+    "description": "Problem konkurentnosti\n\u2022 Status 409 mo\u017ee se iskoristiti da se korisniku  prenese informacija \nda bi izvr\u0161enje zahteva dovelo do nekonzistentnosti resursa\n"
+  },
+  {
+    "title": "Blokiraju\u0107i ili neblokiraju\u0107i zahtevi?",
+    "description": "Blokiraju\u0107i ili neblokiraju\u0107i zahtevi?\n\u2022 HTTP je u svojoj su\u0161tini \nsinhron, ali ipak ne mora \nbiti blokiraju\u0107i \n\u2022 za zahteve za koje znamo \nda mogu dugo da traju \nmo\u017ee se vratiti kod 202, sa \ninformacijom gde \nnaknadno preuzeti rezultat \n\u2022 koliko \u010desto klijent treba da \n\u201cproba\u201d \u010ditanje rezultata \n\u2022 odgovor sa /slow/x bi \nmogao da sadr\u017ei i \nestimaciju trajanja \nobrade\n"
+  },
+  {
+    "title": "Anti\u0161ablon",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 HTTP metod \n\u2022 Sve se radi preko POST zahteva \n\u2022 Prednost: mogu\u0107e je preneti ve\u0107e koli\u010dine \npodataka, pa i uploadovati fajlove \n\u2022 Mana: POST zahtev se ne smatra idempotentnim \nniti sigurnim (pa se stoga ne ke\u0161ira, a i koristi se \nza potencijalno \u201cnesigurne operacije\u201d)\n"
+  },
+  {
+    "title": "za REST",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 HTTP metod \n\u2022 Sve se radi preko POST zahteva \n\u2022 Prednost: mogu\u0107e je preneti ve\u0107e koli\u010dine \npodataka, pa i uploadovati fajlove \n\u2022 Mana: POST zahtev se ne smatra idempotentnim \nniti sigurnim (pa se stoga ne ke\u0161ira, a i koristi se \nza potencijalno \u201cnesigurne operacije\u201d)\n"
+  },
+  {
+    "title": "HTTP samo za tunelovanje zahteva",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 HTTP metod \n\u2022 Sve se radi preko POST zahteva \n\u2022 Prednost: mogu\u0107e je preneti ve\u0107e koli\u010dine \npodataka, pa i uploadovati fajlove \n\u2022 Mana: POST zahtev se ne smatra idempotentnim \nniti sigurnim (pa se stoga ne ke\u0161ira, a i koristi se \nza potencijalno \u201cnesigurne operacije\u201d)\n"
+  },
+  {
+    "title": "Anti\u0161ablon",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 endpoint \n\u2022 Servis sa samo jednim endpoint-om nije dovoljno granularan u \nsmislu pristupa pojedinim entitetima-resursima. Klijent tada mora \nda radi sa najmanje dva identi\ufb01katora, jedan identi\ufb01kator za sam \nservis, identi\ufb01katori za entitete\n"
+  },
+  {
+    "title": "za REST",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 endpoint \n\u2022 Servis sa samo jednim endpoint-om nije dovoljno granularan u \nsmislu pristupa pojedinim entitetima-resursima. Klijent tada mora \nda radi sa najmanje dva identi\ufb01katora, jedan identi\ufb01kator za sam \nservis, identi\ufb01katori za entitete\n"
+  },
+  {
+    "title": "HTTP samo za tunelovanje zahteva",
+    "description": "Anti\u0161ablon za REST \u2028\nHTTP samo za tunelovanje zahteva\n\u2022 Tunelovanje kroz 1 endpoint \n\u2022 Servis sa samo jednim endpoint-om nije dovoljno granularan u \nsmislu pristupa pojedinim entitetima-resursima. Klijent tada mora \nda radi sa najmanje dva identi\ufb01katora, jedan identi\ufb01kator za sam \nservis, identi\ufb01katori za entitete\n"
+  },
+  {
+    "title": "Op\u0161ta adresabilnost",
+    "description": "Op\u0161ta adresabilnost\n\u2022 Re\u0161enje za prethodni problem - svaki resurs \npostaje dostupan preko svog individulanog \nendpoint-a\n"
+  },
+  {
+    "title": "Anti\u0161ablon - Cookies",
+    "description": "Anti\u0161ablon - Cookies\n\u2022 Da li su Cookies RESTful? \n\u2022 Zavisi od na\u010dina primene - REST se zasniva na stateless  \nkomunikaciji \n1. \u201ckola\u010di\u010di\u201d mogu i sami biti \u201czatovreni\u201d/samoopisuju\u0107i - tako da \nsadr\u017ee sve informacije koje su neophodne za njihovu \ninterpretaciju pri svakom zahtevu/odgovoru \n2. \u201ckola\u010di\u0107i\u201d sadr\u017ee samo reference na stanje aplikacije (koje se \nsamo ne odr\u017eava kao resurs) \n\u2022 prenose samo tzv. klju\u010d sesije \n\u2022 Prednost: manje podataka se prenosi \n\u2022 Mane: Zahtevi vi\u0161e nisu \u201czatvoreni\u201d po\u0161to nose informaciju o \nnekom kontekstu koji bi server trebao da pamti. \u2028\nTako\u0111e neophodno je imati mehanizam koji \u0107e po\u010distiti \nnekori\u0161\u0107ene reference (istekle sesije)\n"
+  },
+  {
+    "title": "Stateless vs. Stateful?",
+    "description": "Stateless vs. Stateful? \u2028\nStanje aplikacije\n\u2022 Samo ime REST-a sugeri\u0161e da se posmatra stanje \nresursa u distribuiranom sistemu, ali komunikacija \nje stateless. \n\u2022 Stanje na klijentu: \n\u2022 Klijent se kre\u0107e po raspolo\u017eivim resursima tako \n\u0161to prati linkove, njegovo stanje je odre\u0111eno \npose\u0107enim linkovima \n\u2022 Server mo\u017ee da uti\u010de na tranzicije stanja koje su \nklijentu raspolo\u017eive tako \u0161to mu u odgovoru na \nGET zahteve mo\u017ee slati hiperlinkove do resursa \nkoje treba pratiti\n"
+  },
+  {
+    "title": "Stanje aplikacije",
+    "description": "Stateless vs. Stateful? \u2028\nStanje aplikacije\n\u2022 Samo ime REST-a sugeri\u0161e da se posmatra stanje \nresursa u distribuiranom sistemu, ali komunikacija \nje stateless. \n\u2022 Stanje na klijentu: \n\u2022 Klijent se kre\u0107e po raspolo\u017eivim resursima tako \n\u0161to prati linkove, njegovo stanje je odre\u0111eno \npose\u0107enim linkovima \n\u2022 Server mo\u017ee da uti\u010de na tranzicije stanja koje su \nklijentu raspolo\u017eive tako \u0161to mu u odgovoru na \nGET zahteve mo\u017ee slati hiperlinkove do resursa \nkoje treba pratiti\n"
+  },
+  {
+    "title": "Stanje aplikacije",
+    "description": "Stanje aplikacije\n\u2022 Stanje na serveru: \n\u2022 Stanje resursa de\ufb01ni\u0161e perzistetno trenutno \nstanje aplikacije \n\u2022 Klijenti mogu pristupiti resursima koriste\u0107i \nrazli\u010dite reprezentacije \n\u2022 Klijent manipuli\u0161e stanjem resursa na serveru \npreko uniformisanog interfejsa koji obavlja CRUD \noperacije\n"
+  },
+  {
+    "title": "Stanje aplikacije",
+    "description": "Stanje aplikacije\n"
+  },
+  {
+    "title": "Algoritam rada klijenta",
+    "description": "Algoritam rada klijenta\n"
+  },
+  {
+    "title": "REST vs. WS-*",
+    "description": "REST vs. WS-*\n"
+  },
+  {
+    "title": "REST vs. WS-*",
+    "description": "REST vs. WS-*\n"
+  },
+  {
+    "title": "WS-* standardni stack tehnologija",
+    "description": "WS-* standardni stack tehnologija\n"
+  },
+  {
+    "title": "REST standardni stack tehnologija",
+    "description": "REST standardni stack tehnologija\n"
+  },
+  {
+    "title": "Mikroservisi",
+    "description": "Mikroservisi\n"
+  },
+  {
+    "title": "\u0160ta su mikroservisi?",
+    "description": "\u0160ta su mikroservisi?\n\u2022 Jo\u0161 jedan stil arhitekture softverskih sistema, u \nkome se velike slo\u017eene aplikacije komponuju \nsklapanjem pojedina\u010dnih servisa. \n\u2022 Koncept nije potpuna novina - predstavlja samo jo\u0161 \njedan pristup implementaciji SOA \n\u2022 Mikroservisi mogu biti nezavisno deployovani i \nme\u0111usobno su slabo spregnuti. \n\u2022 Kod mikroservisnih arhitektura pojedina\u010dni servisi \nobavljaju jedan zadatak \n\u2022 Taj jedan zadatak predstavlja jednu poslovnu funkciju \ncelokupnog sistema\n"
+  },
+  {
+    "title": "Za\u0161to novi stil arhitekture?",
+    "description": "Za\u0161to novi stil arhitekture?\n\u2022 Promenilo se okru\u017eenje u kojem se aplikacije izv\u0161avaju  \n\u2022 Promene u poslednjih 15-ak godina:\ntabela preuzeta iz knjige - izve\u0161taja: Reactive Microsystems, The Evolution of Microservices at Scale, Jonas Bon\u00e9r \n"
+  },
+  {
+    "title": "Za\u0161to jo\u0161 jedan stil arhitekture?",
+    "description": "Za\u0161to jo\u0161 jedan stil arhitekture?\n\u2022 Dosada\u0161nje arhitekture su dobro zadovoljavale potrebe, \n\u010dak i velikih aplikacija, ali ne zadovoljavaju u uslovima \nvisokodistribuiranih sistema. \n\u2022 Dana\u0161nje aplikacije su \u010desto miks aplikacija/modula koji \nse izvr\u0161avaju na raznim platformama - mobilnim \nure\u0111ajima, desktop ma\u0161inama, velikim serverima, a broj \nkorisnika je \u010desto jako veliki i \u010desto vrlo promenljiv. \n\u2022 Da bi se odgovorilo na potrebe novih aplikacija \nneophodno je \u201cnapusititi monolitnu arhitekturu i \ndekomponovati sistem u upravljive diskretne servise koji \nmogu samostalno da se skaliraju, i koji mogu u potpunoj \nizolaciji da otkazuju, da se pu\u0161taju u produkciju i da se \na\u017euriraju\u201d (dakle nezavisno od svih ostalih)1 \n1 prevod citata iz: Jonas Bon\u00e9r. \u201cReactive Microsystems\u201d\n"
+  },
+  {
+    "title": "Za\u0161to mikroservisna arhitektura?",
+    "description": "Za\u0161to mikroservisna arhitektura?\n\u2022 Evolucija sistema tokom vremena:\nslika preuzeta iz knjige - izve\u0161taja: Reactive Microsystems, The Evolution of Microservices at Scale, Jonas Bon\u00e9r \n"
+  },
+  {
+    "title": "Koje su klju\u010dne osobine mikroservisa",
+    "description": "Koje su klju\u010dne osobine mikroservisa\n\u2022 Izolacija - svaki mikroservisni modul trebao bi biti potpuno \nizolovan, razvijati se samostalno, \u010duvati svoje podatke \nsamostalno i isporu\u010divati se samostalno. \n\u2022 Autonomija - svaki mikroservisni modul bi trebalo da je u \nmogu\u0107nosti da obavi svoju funkcionalnost autonomno - sve \nodluke o tome \u0161ta se radi, i kako se radi (kompletna logika) mora \nbiti u samom mikroservisu za datu funkcionalnost (izolacija je \npreduslov za ovo). Autonomni servisi me\u0111usobno komuniciraju \nda bi obavili zadatke koji su slo\u017eeniji od njihove funkcionalnosti. \n\u2022 Odgovornost za jednu stvar (single responsibility) - \nmikroservis bi trebao da je napisan tako da obavlja jednu stvar i \nda je obavlja dobro - obavlja malu, jasno de\ufb01nisanu \nfunkcionalnost koju je mogu\u0107e uklopiti sa funkcionalno\u0161\u0107u i \ndrugih modula kada se formira slo\u017eeni sistem.  \nOvaj princip direktno odre\u0111uje \u0161ta je to ta\u010dno \u201cmikro\u201d (nije bitan \nbroj linija koda, ve\u0107 jedna jasna i zaokreu\u017eena funkcija).\n"
+  },
+  {
+    "title": "Koje su klju\u010dne osobine mikroservisa",
+    "description": "Koje su klju\u010dne osobine mikroservisa\n\u2022 Ekskluzivnost \u010duvanja sopstvenog stanja - svaki mikroservisni \nmodul je jedini vlasnik podataka nad kojima operi\u0161e. Ovo je \u010dinjenica \nkoja ima ogroman efekat na ceo sistem - svi podaci su potpuno \nkonzistentni samo unutar granica jednog mikroservisa, ali se to nikada \nne pretpostavlja za podatke izvan ovog ograni\u010denog konteksta (za njih \nse pretpostavlja eventual consistency ili causal consistency).\nslika preuzeta iz knjige - izve\u0161taja: Reactive Microsystems, The Evolution of Microservices at Scale, Jonas Bon\u00e9r\n"
+  },
+  {
+    "title": "Koje su klju\u010dne osobine mikroservisa",
+    "description": "Koje su klju\u010dne osobine mikroservisa\n\u2022 mobilnost - mobilnost servisa podrazumeva \nmogu\u0107nost sistema da bude elasti\u010dan i dinami\u010dki \nadapatabilana - mikroservisni moduli mogu da se \npokrenu na razli\u010ditim serverima u razli\u010ditim \nmomentima, da postoji 1 ili vi\u0161e instanci istog \nmikroservisa u bilo kom momentu. \n\u2022 virtualizacija, kontejnerizacija su odli\u010dni alati koji ovo \nomogu\u0107avaju, ali ni\u0161ta od svega toga ne vredi ako \nsu nam servisi adresirani \ufb01ksno. \n\u2022 mora na nivou upravljanja celim sistemom postojati \nmehanizam da se mikroservisu mo\u017ee pristupiti, a da \nse nigde ne hardcodira  njegova adresa\nslika preuzeta iz knjige - izve\u0161taja: Reactive Microsystems, The Evolution of Microservices at Scale, Jonas Bon\u00e9r\n"
+  },
+  {
+    "title": "Osnovne karakteristike?",
+    "description": "Osnovne karakteristike?\n\u2022 Svaki mikroservis mogu\u0107e je razvijati u \nprogramskom jeziku koji je najpogodniji, nezavisno \nod svih ostalih.  \n\u2022 Komunikacija izme\u0111u mikroservisa se obavlja \nprogramskim interfejsima (API) koji su nezavisni od \nprogramskog jezika (npr. Representational State \nTransfer (REST).  \n\u2022 Mikroservisi (moduli koji ih realizuju) imaju potpuno \nograni\u010den kontekst (bounded context) - ne moraju \nbiti svesni nikakvih implementacionih detalja i \narhitekture drugih mikroservisih modula.\n"
+  },
+  {
+    "title": "Monolitni vs. mirkoservisni sistemi",
+    "description": "Monolitni vs. mirkoservisni sistemi\n\u2022 Monolitne nasuprot mikroservisnim arhitekturama \n\u2022 Kako naj\u010de\u0161\u0107e gradimo velike softverske sisteme? \n\u2022 Naj\u010de\u0161\u0107e ih sagledavamo izdeljene po slojevima \n\u2022 Vi\u0161eslojne arhitekture \n\u2022 klijentski sloj \n\u2022 sloj biznis logike \n\u2022 sloj podataka\n"
+  },
+  {
+    "title": "Kako se skaliraju monolitne aplikacije",
+    "description": "Kako se skaliraju monolitne aplikacije \nda odgovore pove\u0107anim zahtevima?\n\u2022 Pokre\u0107e se vi\u0161e instanci backend aplikacija sa \nidenti\u010dnim modulima kako bi odgovorile na \npove\u0107ane zahteve\n"
+  },
+  {
+    "title": "da odgovore pove\u0107anim zahtevima?",
+    "description": "Kako se skaliraju monolitne aplikacije \nda odgovore pove\u0107anim zahtevima?\n\u2022 Pokre\u0107e se vi\u0161e instanci backend aplikacija sa \nidenti\u010dnim modulima kako bi odgovorile na \npove\u0107ane zahteve\n"
+  },
+  {
+    "title": "Kako se skaliraju monolitne aplikacije",
+    "description": "Kako se skaliraju monolitne aplikacije \nda odgovore pove\u0107anim zahtevima?\n\u2022 Ovakav princip skaliranja  \nje tipi\u010dan za monolitne  \naplikacije \n\u2022 Ako imamo veliki broj  \nservera, na svakom se  \n\u201cvrte\u201d isti moduli \n\u2022 \u0160ta ako su nam neke funkcije sistema vi\u0161e \noptere\u0107ene nego neke druge?  \n\u2022 Da li je ba\u0161 najoptimalnije da su nam svi moduli \nimplementirani na isti na\u010din (isti programski jezik, \nisti runtime, koriste istu bazu\u2026)\n"
+  },
+  {
+    "title": "da odgovore pove\u0107anim zahtevima?",
+    "description": "Kako se skaliraju monolitne aplikacije \nda odgovore pove\u0107anim zahtevima?\n\u2022 Ovakav princip skaliranja  \nje tipi\u010dan za monolitne  \naplikacije \n\u2022 Ako imamo veliki broj  \nservera, na svakom se  \n\u201cvrte\u201d isti moduli \n\u2022 \u0160ta ako su nam neke funkcije sistema vi\u0161e \noptere\u0107ene nego neke druge?  \n\u2022 Da li je ba\u0161 najoptimalnije da su nam svi moduli \nimplementirani na isti na\u010din (isti programski jezik, \nisti runtime, koriste istu bazu\u2026)\n"
+  },
+  {
+    "title": "Mirkoservisni pristup?",
+    "description": "Mirkoservisni pristup?\n\u2022 Mikroservisi se orijenti\u0161u na jednostavnu poslovnu \nfunkcionalnost - jedan zadatak, i kao takvi su po pravilu \nmali moduli. \n\u2022 Nema pravila koliko mali moraju biti, i ne treba se \nkoncentrisati na broj linija koda nego na funkcionalnost. \n\u2022\n\u201cPravilo 2 pizze\u201d - ako vam je tim koji je neophodan da realizujete mikroservisni modul toliko veliki \nda ne mo\u017eete da ga nahranite sa samo 2 pizze - ne\u0161to ste oma\u0161ili \n\u2022 Klju\u010dna je jednostavnost interfejsa - ona obi\u010dno dovodi i \ndo relativno male implementacije, ali to ne mora uvek biti \nslu\u010daj.  \n\u2022 Mikroservisni modul treba tretirati kao nezavisnu \naplikaciju ili nezavisni proizvod. Po\u017eeljno je da ima \nsopstveni repozitorijum za upravljanje kodom, i sopstveni \nbuild i deployment.\n"
+  },
+  {
+    "title": "Ponovna iskoristivost i",
+    "description": "Ponovna iskoristivost i \ngranularnost mikroservisa\n\u2022 Iako je ponovna iskoristivost po\u017eeljna, nije i obavezna i \nnije jedini razlog njihovog uvo\u0111enja \n\u2022\nlokalne optimizacije korisni\u010dkog interejsa kako bi se pobolj\u0161ao \nodziv, \n\u2022\nlak\u0161e prilago\u0111avanje potrebama korisnika\u2026 \n\u2022 Granularnost mikroservisa se tako\u0111e odre\u0111uje na \nosnovu poslovnih potreba  \n\u2022\nnpr. pra\u0107enje paketa, prognoze vremena se danas vrlo \u010desto mogu \nkoristiti kao servisi tre\u0107e strane \n\u2022 Problem latentnosti servisa - ukoliko je previ\u0161e usitnjen \ni zateva previ\u0161e poziva ka drugim mikroservisima, \nmo\u017ee se osetiti problem usporenja aplikacije \n"
+  },
+  {
+    "title": "granularnost mikroservisa",
+    "description": "Ponovna iskoristivost i \ngranularnost mikroservisa\n\u2022 Iako je ponovna iskoristivost po\u017eeljna, nije i obavezna i \nnije jedini razlog njihovog uvo\u0111enja \n\u2022\nlokalne optimizacije korisni\u010dkog interejsa kako bi se pobolj\u0161ao \nodziv, \n\u2022\nlak\u0161e prilago\u0111avanje potrebama korisnika\u2026 \n\u2022 Granularnost mikroservisa se tako\u0111e odre\u0111uje na \nosnovu poslovnih potreba  \n\u2022\nnpr. pra\u0107enje paketa, prognoze vremena se danas vrlo \u010desto mogu \nkoristiti kao servisi tre\u0107e strane \n\u2022 Problem latentnosti servisa - ukoliko je previ\u0161e usitnjen \ni zateva previ\u0161e poziva ka drugim mikroservisima, \nmo\u017ee se osetiti problem usporenja aplikacije \n"
+  },
+  {
+    "title": "\u0160ta je ovde bitno razli\u010dito",
+    "description": "\u2022 Nema glomaznih modula sa \n\u201c\u0161pageti\u201d kodom \n\u2022 Komponente se mogu  \nrazvijati potpuno nezavisno  \njedna od druge \n\u2022\nrazli\u010diti programski jezici, izvr\u0161na okru\u017eenja, \nOS, hardware, DB  \n\u2022 Komponente se mogu relativno jednostavno menjati  \n\u2022\nMo\u017ee se zameniti i kompletna tehnologija modula \n\u2022 Mogu\u0107e razli\u010dito skaliranje razli\u010ditih komponenti\n\u0160ta je ovde bitno razli\u010dito\n"
+  },
+  {
+    "title": "Razlika u skaliranju",
+    "description": "Razlika u skaliranju\n"
+  },
+  {
+    "title": "Pretpostavke za uspe\u0161nu",
+    "description": "Pretpostavke za uspe\u0161nu \nmikroservisnu arhitekturu\n\u2022 1 komponenta = 1 servis \n\u2022 \u201cpametni\u201d endpointi i \u201cglupi\u201d komunikacioni kanali \n(za razliku od npr. ESB, koji vrlo \u010desto sadr\u017ei \nslo\u017eene mehanizme rutiranja, transformacija i sl.) \n\u2022 decentralizovano upravljanje \n\u2022 decentralizovano upravljanje podacima \n\u2022 automatizacija infrastrukture \n\u2022 dizajnirati arhitekturu da trpi otkaze \n\u2022 evolutivni dizajn\n"
+  },
+  {
+    "title": "mikroservisnu arhitekturu",
+    "description": "Pretpostavke za uspe\u0161nu \nmikroservisnu arhitekturu\n\u2022 1 komponenta = 1 servis \n\u2022 \u201cpametni\u201d endpointi i \u201cglupi\u201d komunikacioni kanali \n(za razliku od npr. ESB, koji vrlo \u010desto sadr\u017ei \nslo\u017eene mehanizme rutiranja, transformacija i sl.) \n\u2022 decentralizovano upravljanje \n\u2022 decentralizovano upravljanje podacima \n\u2022 automatizacija infrastrukture \n\u2022 dizajnirati arhitekturu da trpi otkaze \n\u2022 evolutivni dizajn\n"
+  },
+  {
+    "title": "Koliko velike komponente",
+    "description": "Koliko velike komponente  \ntreba da budu?\n\u2022 Komponente se mogu formirati kao  \n\u2022 biblioteke (moduli) \n\u2022 servisi \n\u2022 Mikroservisi promovi\u0161u modularizaciju pomo\u0107u \nservisa \n\u2022 svaku komponentu mo\u017eete pojedina\u010dno \nzameniti \n\u2022 svaku komponentu mo\u017eete nezavisno a\u017eurirati \n\u2022 Ovo zna\u010di da se mogu i nezavisno razvijati, \ntestirati\u2026\n"
+  },
+  {
+    "title": "treba da budu?",
+    "description": "Koliko velike komponente  \ntreba da budu?\n\u2022 Komponente se mogu formirati kao  \n\u2022 biblioteke (moduli) \n\u2022 servisi \n\u2022 Mikroservisi promovi\u0161u modularizaciju pomo\u0107u \nservisa \n\u2022 svaku komponentu mo\u017eete pojedina\u010dno \nzameniti \n\u2022 svaku komponentu mo\u017eete nezavisno a\u017eurirati \n\u2022 Ovo zna\u010di da se mogu i nezavisno razvijati, \ntestirati\u2026\n"
+  },
+  {
+    "title": "Klasi\u010dna organizacija razvoja",
+    "description": "Klasi\u010dna organizacija razvoja\n\u2022 1 tim po sloju, i svaki tim \nse bavi funkcionalno-\nstima koje su u datom \nsloju bez obzira na to koji \nsegment aplikacije \nopslu\u017euju\n"
+  },
+  {
+    "title": "Decentralizovano upravljanje",
+    "description": "Decentralizovano upravljanje\n\u2022 Odluke o na\u010dinu implementacije se donose \ndecentralizoanvo \n\u2022 Servisi podatke razmenjuju ISKLJU\u010cIVO preko \njavno dostupnih API-ja, nema oslanjanja na \ndeljene baze podataka \n\u2022 Omogu\u0107ava svakom servisu da podacima upravlja \nna na\u010din koji je najpogodniji sa stanovi\u0161ta tog \nservisa\n"
+  },
+  {
+    "title": "Automatizacija infrastrukture",
+    "description": "Automatizacija infrastrukture\n\u2022 Za e\ufb01kasno kori\u0161\u0107enje mikroservisnih arhitetura najverovatnije \u0107e \nbiti neophodno da: \n\u2022 Razvijate servise nezavisno \n\u2022 Servise nezavisno pu\u0161tate u rad (deployment) \n\u2022 Morate obezbediti: \n\u2022 mogu\u0107nost da dobijete serverske kapacitete brzo kako bi mogli \nda iskoristite skalabilnost re\u0161enja \n\u2022 dobar monitoring kako bi bili u stanju da vidite kada servisi ne \nkomuniciraju kako treba \n\u2022 brz deployment novih ili a\u017euriranih servisa \n\u2022 razvijenu kulturu jake integracije timova koji rade nadzor servisa \nu radu i tim akoji radi razvoj (\"devops\") \n\u2022 Klju\u010dna stvar za uspeh mikroservisa je automatizacija svega \nnavedenog\n"
+  },
+  {
+    "title": "Dizajniranje sistema tako da bude",
+    "description": "Dizajniranje sistema tako da bude \notporan na otkaze\n\u2022 Konceptom mikroservisa ukupna struktura sistema mo\u017ee \nozbiljno da se zakomplikuje \n\u2022 Mnogo \u201cpokretnih\u201d deli\u0107a koji mogu da otka\u017eu: \n\u2022 Pojedini servisi mogu imati gre\u0161ke \n\u2022 Pojedini servisi mogu raditi vrlo sporo \n\u2022 Celi serveri mogu pasti \n\u2022 Sa 60,000 HD ova 3 dnevno \u0107e verovanto otkazati \n\u2022 Klju\u010dna stvar - dizajnirati svaki servis pretpostavljaju\u0107i da u \nnekom momentu sve ono od \u010dega taj servis zavisi mo\u017ee prosto \nda nestane i bude nedostupno \n\u2022 servis tada mora otkazati \u201cgracefully\u201d \n\u2022 Net\ufb02ix  -  \u201cChaosMonkey\u201d\n"
+  },
+  {
+    "title": "otporan na otkaze",
+    "description": "Dizajniranje sistema tako da bude \notporan na otkaze\n\u2022 Konceptom mikroservisa ukupna struktura sistema mo\u017ee \nozbiljno da se zakomplikuje \n\u2022 Mnogo \u201cpokretnih\u201d deli\u0107a koji mogu da otka\u017eu: \n\u2022 Pojedini servisi mogu imati gre\u0161ke \n\u2022 Pojedini servisi mogu raditi vrlo sporo \n\u2022 Celi serveri mogu pasti \n\u2022 Sa 60,000 HD ova 3 dnevno \u0107e verovanto otkazati \n\u2022 Klju\u010dna stvar - dizajnirati svaki servis pretpostavljaju\u0107i da u \nnekom momentu sve ono od \u010dega taj servis zavisi mo\u017ee prosto \nda nestane i bude nedostupno \n\u2022 servis tada mora otkazati \u201cgracefully\u201d \n\u2022 Net\ufb02ix  -  \u201cChaosMonkey\u201d\n"
+  },
+  {
+    "title": "Odr\u017eavanje konzistencije",
+    "description": "Odr\u017eavanje konzistencije\n\u2022 Jedno od pravila mikroservisa je ne koristiti deljene \nbaze podataka \n\u2022 Neke podatke ipak verovatno  \nkoristi vi\u0161e servisa \n\u2022 A\u017euriranje se vr\u0161i preko asinhronih poziva \n\u2022 Nema garancije da \u0107e svi moduli obaviti a\u017euriranje \nu istom trenutku \n\u2022 Garantuje se da \u0107e oni u nekom momentu a\u017eurirati \npodatke (eventual consistency)\n"
+  },
+  {
+    "title": "Odr\u017eavanje konzistencije",
+    "description": "Odr\u017eavanje konzistencije\n\u2022 Glavni problem je \u0161to razli\u010diti servisi mogu \nodgovoriti na zahtev u razli\u010ditim vremenskim \ntrenucima \n\u2022 \u0160ta ako jedan zahtev rezultuje promenom resursa \nna jednom servisu, ali ostali jo\u0161 nisu procesirali \nkorespondiraju\u0107e zahteve? \n\u2022 Mogu\u0107e je da se dobiju nekonzistentna stanja \nza korespondiraju\u0107e resurse. \n\u2022 Mora se napisati dodatna logika da korektno \nobradi ovakve situacije.\n"
+  },
+  {
+    "title": "Da li su mikroservisi idealno re\u0161enje?",
+    "description": "Da li su mikroservisi idealno re\u0161enje?\n\u2022 Zavisi od konteksta \n\u2022 Za svaku aplikaciju neophodno je analizirati dobre i lo\u0161e \nstrane mikroservisne arhitekture, pa tek onda odlu\u010diti. \n\u2022 Jako su dobro re\u0161enje za sisteme koji su po prirodi \ndistribuirani, namenjeni velikom broju razli\u010ditih korisnika, \nkoji koriste razli\u010dite funkcionalnosti sistema, za izgradnju \nelasti\u010dnih i otpornih sistema koji se lako prilago\u0111avaju \npromenama optere\u0107enja i zahteva korisnika\u2026 \n\u2022 \u2026 ali mogu pove\u0107ati kompleksnost kompletnog re\u0161enja, \nusporiti odziv celokupnog sistema, ako je za neku spolja \nzahtevanu akciju neophodna koordinacija vi\u0161e \nmikroservisnih modula (moduli previ\u0161e \u201cpri\u010daju \nme\u0111usobno\u201d)\n"
+  },
+  {
+    "title": "Kada koristiti koji pristup arhitekturi?",
+    "description": "Kada koristiti koji pristup arhitekturi?\n\u2022 Monolitne: \n\u2022 Jednostavnija za razvoj - jedna tehnnologija za celokupno re\u0161enje, lak\u0161e \ntestiranje celokupnog sistema \n\u2022 Pogodne za nedistribuirane sisteme \n\u2022 Dobra za po\u010detne faze razvoja sistema \n\u2022 Mirkoservisi: \n\u2022 Kada nam odgovara i treba modularna implementacija \n\u2022 Kada je neophodna visoka dostupnost - \u010dak i ako jedan mikroservis otka\u017ee \nostatak funkcionalnosti se i dalje mo\u017ee koristiti \n\u2022 Modularnost sistema - jasno odvajanje funkcionalnosti se forsira \nmikroservisnim pristupom \n\u2022 Lako se po potrebi razvija na razli\u010ditim platformama - omogu\u0107avaju\u0107i da \nse iskoriste najbolje tehnologije za pojedine probleme - integracija se mora \ndob ro testirati \n\u2022 Net\ufb02ix ima vrlo pozitivno iskustvo - prakti\u010dno mu omogu\u0107ava dnevne i \u010dak \nsatna a\u017euriranja komponenti \n\u2022 \u010cesto se u praksi nalazi  i neko hibridno re\u0161enje\n"
+  }
+]
